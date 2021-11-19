@@ -84,8 +84,6 @@
 
 		handle_heartbeat()
 
-		handle_nourishment()
-
 		handle_weight()
 
 		if(!client)
@@ -896,12 +894,6 @@
 	if(nutrition > 0 && stat != DEAD)
 		adjust_nutrition(-species.hunger_factor)
 
-		for(var/datum/modifier/mod in modifiers)
-			if(!isnull(mod.metabolism_percent))
-				nutrition_reduction *= mod.metabolism_percent
-
-		nutrition = max (0, nutrition - nutrition_reduction)
-
 	if(!isSynthetic())
 		if(hydration > 0 && stat != DEAD)
 			adjust_hydration(-species.thirst_factor)
@@ -910,17 +902,6 @@
 
 		if(calories > 0 && stat != DEAD && client) //Calories won't burn when you're SSD or dead.
 			adjust_calories(-species.metabolic_rate / 100)
-
-		if(calories <= species.min_calories | calories >= species.max_calories)
-			if (prob(5))
-				adjustToxLoss(10)
-		//If you're too fat or skinny, you're gon die. Maybe make better symptoms later.
-			if (prob(5))
-				vomit()
-
-			if (prob(15))
-				src << "<span class='danger'>[pick("You feel dizzy and incredibly sick", "Your head is pounding", "Your entire body feels like it's dying")]!</span>"
-				Weaken(20)
 
 		if (nutrition > 450)
 			if(overeatduration < 600) //capped so people don't take forever to unfat
@@ -1649,24 +1630,6 @@
 				temp = PULSE_NONE
 
 	return round(temp * brain_modifier)
-
-
-/mob/living/carbon/human/proc/handle_nourishment()
-	if (nutrition <= 0)
-		if (prob(1.5))
-			if(!isSynthetic())
-				to_chat(src, span("warning", "Your hunger pangs are excruciating as the stomach acid sears in your stomach... you feel weak."))
-			else
-				to_chat(src, span("warning", "Your internal battery makes a silent beep. It is time to recharge."))
-
-		return
-
-	if (hydration <= 0)
-		if (prob(1.5))
-			if(!isSynthetic())
-				to_chat(src, span("warning", "You feel dizzy and disorientated as your lack of hydration becomes impossible to ignore."))
-
-		return
 
 
 

@@ -85,7 +85,7 @@
 	var/list/unarmed_attacks = null							// For empty hand harm-intent attack
 	var/brute_mod =			1								// Physical damage multiplier.
 	var/burn_mod =			1								// Burn damage multiplier.
-	var/oxy_mod =			1								// Oxyloss modifier
+	var/oxy_mod =			0								// Oxyloss modifier
 	var/toxins_mod =		1								// Toxloss modifier
 	var/radiation_mod =		1								// Radiation modifier
 	var/flash_mod =			1								// Stun from blindness modifier.
@@ -108,16 +108,16 @@
 
 	// Environment tolerance/life processes vars.
 	var/reagent_tag									//Used for metabolizing reagents.
-	var/breath_type = "oxygen"							// Non-oxygen gas breathed, if any.
+	var/breath_type = null							// Non-oxygen gas breathed, if any.
 	var/poison_type = "phoron"							// Poisonous air.
-	var/exhale_type = "carbon_dioxide"						// Exhaled gas type.
+	var/exhale_type = null						// Exhaled gas type.
 
 	var/body_temperature = 310.15							// Species will try to stabilize at this temperature. (also affects temperature processing)
 
 	// Cold
-	var/cold_level_1 = 260									// Cold damage level 1 below this point.
-	var/cold_level_2 = 200									// Cold damage level 2 below this point.
-	var/cold_level_3 = 120									// Cold damage level 3 below this point.
+	var/cold_level_1 = -1									// Cold damage level 1 below this point.
+	var/cold_level_2 = -1									// Cold damage level 2 below this point.
+	var/cold_level_3 = -1									// Cold damage level 3 below this point.
 
 	var/breath_cold_level_1 = 240							// Cold gas damage level 1 below this point.
 	var/breath_cold_level_2 = 180							// Cold gas damage level 2 below this point.
@@ -131,9 +131,9 @@
 		)
 
 	// Hot
-	var/heat_level_1 = 360									// Heat damage level 1 above this point.
-	var/heat_level_2 = 400									// Heat damage level 2 above this point.
-	var/heat_level_3 = 1000									// Heat damage level 3 above this point.
+	var/heat_level_1 = 10001									// Heat damage level 1 above this point.
+	var/heat_level_2 = 10002									// Heat damage level 2 above this point.
+	var/heat_level_3 = 10003									// Heat damage level 3 above this point.
 
 	var/breath_heat_level_1 = 380							// Heat gas damage level 1 below this point.
 	var/breath_heat_level_2 = 450							// Heat gas damage level 2 below this point.
